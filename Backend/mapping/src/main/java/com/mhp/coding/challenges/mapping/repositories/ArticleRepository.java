@@ -1,5 +1,6 @@
 package com.mhp.coding.challenges.mapping.repositories;
 
+import com.mhp.coding.challenges.mapping.exception.ArticleNotFoundException;
 import com.mhp.coding.challenges.mapping.models.db.Article;
 import com.mhp.coding.challenges.mapping.models.db.Image;
 import com.mhp.coding.challenges.mapping.models.db.ImageSize;
@@ -11,7 +12,7 @@ import java.util.*;
 @Component
 public class ArticleRepository {
 
-    public List<Article> all(){
+    public List<Article> all() {
         final List<Article> result = new ArrayList<>();
         result.add(createDummyArticle(1001L));
         result.add(createDummyArticle(2002L));
@@ -21,11 +22,14 @@ public class ArticleRepository {
         return result;
     }
 
-    public Article findBy(Long id){
-        return createDummyArticle(id);
+    public Article findBy(Long id) {
+        return all().parallelStream()
+                    .filter(a -> a.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new ArticleNotFoundException(id));
     }
 
-    public void create(Article article){
+    public void create(Article article) {
         //Ignore
     }
 
@@ -41,7 +45,7 @@ public class ArticleRepository {
         return result;
     }
 
-    private Set<ArticleBlock> createBlocks(Long articleId){
+    private Set<ArticleBlock> createBlocks(Long articleId) {
         final Set<ArticleBlock> result = new HashSet<>();
 
         final TextBlock textBlock = new TextBlock();
@@ -51,7 +55,7 @@ public class ArticleRepository {
 
         final ImageBlock imageBlock = new ImageBlock();
         imageBlock.setImage(createImage(1L));
-        textBlock.setSortIndex(1);
+        imageBlock.setSortIndex(1);
         result.add(imageBlock);
 
         final TextBlock secondTextBlock = new TextBlock();
@@ -60,7 +64,7 @@ public class ArticleRepository {
         result.add(secondTextBlock);
 
         final GalleryBlock galleryBlock = new GalleryBlock();
-        secondTextBlock.setSortIndex(3);
+        galleryBlock.setSortIndex(3);
 
         final List<Image> galleryImages = new ArrayList<>();
         galleryImages.add(createImage(2L));
@@ -84,13 +88,13 @@ public class ArticleRepository {
         return result;
     }
 
-    private Image createImage(Long imageId){
+    private Image createImage(Long imageId) {
         final Image result = new Image();
         result.setId(imageId);
         result.setLastModified(new Date());
         result.setLastModifiedBy("Max Mustermann");
         result.setImageSize(ImageSize.LARGE);
         result.setUrl("https://someurl.com/image/" + imageId);
-        return null;
+        return result;
     }
 }

@@ -1,18 +1,17 @@
 package com.mhp.coding.challenges.mapping.models.db.blocks;
 
-import com.mhp.coding.challenges.mapping.models.db.Image;
 import com.mhp.coding.challenges.mapping.models.dto.blocks.ArticleBlockDto;
 
-public class ImageBlock extends ArticleBlock {
+public class AudioBlock extends ArticleBlock {
 
-    private Image image;
+    private String text;
 
-    public Image getImage() {
-        return image;
+    public String getText() {
+        return text;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override

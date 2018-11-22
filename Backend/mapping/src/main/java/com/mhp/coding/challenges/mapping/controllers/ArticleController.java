@@ -18,12 +18,12 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @GetMapping()
+    @GetMapping(produces = "application/json")
     public List<ArticleDto> list() {
         return articleService.list();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ArticleDto details(@PathVariable Long id) {
         return articleService.articleForId(id);
     }

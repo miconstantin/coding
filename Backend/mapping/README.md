@@ -1,7 +1,7 @@
 # Backend Coding Challenge: Mapping Challenge
 
 acceptance criteria: 
- - `Article` is corectly mapped to `ArticleDTO` (see `ArticleController#list` and `ArticleController#details`) and is emitted as a JSON from the Controllers
+ - `Article` is correctly mapped to `ArticleDTO` (see `ArticleController#list` and `ArticleController#details`) and is emitted as a JSON from the Controllers
  - the collection of `ArticleBlockDto` in `ArticleDTO` is sorted after `sortIndex` in `ArticleBlockDTO`
  - in case an `Article` cannot be found via ID, a 404 shall be shown (see `ArticleController#details`)
  - optional: in case a new implementation of `ArticleBlock` is created and no mapping is implemented, the user shall get an info
@@ -9,8 +9,19 @@ acceptance criteria:
 general conditions:
  - DB Models and DTO Models can be extended with Interfaces/Properties
  - Existing field of Models and DTOs shall not be modified
- - the Packagestructure shall not be modified
+ - the Package structure shall not be modified
  - Any other gradle dependencies can be added.
+ 
+Notes:
+  	Updated `ArticleRepository`:
+  	    - to return existing article 1001-5005 instead of a new one each time
+  	    - to return an `Image` instead of null (assuming haste in original implementation)
+  	    - and corrected index order for `ArticleBlockDto` (assume it was meant with different indexes)
+  	Used FQDN as some consider acceptable. I would rather go with different DTO names for readability. Matter of agreed project standard
+  	I used Swagger and acceptance criteria can be tested by firing the application and navigating to http://localhost:8100/swagger-ui.html
+  	Added a new `ArticleBlock` type called `AudioBlock` with minimal features. Now I can even force a DTO implementation at visitor level
+  	Minor typo fixes
+  	Added minimal unit/integration tests; more can be done to increase coverage/cases but for the time being will suffice
 
 
 

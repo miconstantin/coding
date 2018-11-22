@@ -1,5 +1,7 @@
 package com.mhp.coding.challenges.mapping.models.db.blocks;
 
+import com.mhp.coding.challenges.mapping.models.dto.blocks.ArticleBlockDto;
+
 public class VideoBlock extends ArticleBlock {
 
     private String url;
@@ -20,5 +22,10 @@ public class VideoBlock extends ArticleBlock {
 
     public void setType(VideoBlockType type) {
         this.type = type;
+    }
+
+    @Override
+    public ArticleBlockDto asDto(ArticleBlockVisitor av) {
+        return av.visit(this);
     }
 }
